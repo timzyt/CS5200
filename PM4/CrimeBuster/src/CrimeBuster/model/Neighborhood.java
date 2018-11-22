@@ -2,17 +2,27 @@ package crimebuster.model;
 
 public class Neighborhood {
 
-  protected String neighborhood;
+  protected int neighborhoodId;
+  protected String neighborhoodName;
 
-  public Neighborhood(String neighborhood) {
-    this.neighborhood = neighborhood;
+  public Neighborhood(int neighborhoodId, String neighborhoodName) {
+    this.neighborhoodId = neighborhoodId;
+    this.neighborhoodName = neighborhoodName;
   }
 
-  public String getNeighborhood() {
-    return neighborhood;
+  public int getNeighborhoodId() {
+    return neighborhoodId;
   }
 
-  public void setNeighborhood(String neighborhood) {
-    this.neighborhood = neighborhood;
+  public void setNeighborhoodId(int neighborhoodId) {
+    this.neighborhoodId = neighborhoodId;
+  }
+
+  public String getNeighborhoodName() {
+    return neighborhoodName;
+  }
+
+  public void setNeighborhoodName(String neighborhoodName) {
+    this.neighborhoodName = neighborhoodName;
   }
 }

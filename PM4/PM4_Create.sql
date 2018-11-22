@@ -16,13 +16,13 @@ DROP TABLE IF EXISTS Zipcode;
 CREATE TABLE Zipcode(
 	ZipcodeId INT AUTO_INCREMENT,
 	Zipcode VARCHAR(25),
-    CONSTRAINT pk_Zipcode_Zipcode PRIMARY KEY (ZipcodeId)
+    CONSTRAINT pk_Zipcode_ZipcodeId PRIMARY KEY (ZipcodeId)
 );
 
 CREATE TABLE Neighborhood(
 	NeighborhoodId INT AUTO_INCREMENT,
 	NeighborhoodName VARCHAR(255),
-    CONSTRAINT pk_NeighborhoodName_NeighborhoodName PRIMARY KEY (NeighborhoodId)
+    CONSTRAINT pk_Neighborhood_NeighborhoodId PRIMARY KEY (NeighborhoodId)
 );
 
 CREATE TABLE SectorPrecinct(

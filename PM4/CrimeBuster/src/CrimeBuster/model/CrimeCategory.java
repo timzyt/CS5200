@@ -2,12 +2,23 @@ package crimebuster.model;
 
 public class CrimeCategory {
 
+  protected int crimeCategoryId;
   protected String primaryOffenseDescription;
   protected String crimeSubCategoryName;
 
-  public CrimeCategory(String primaryOffenseDescription, String crimeSubCategoryName) {
+  public CrimeCategory(int crimeCategoryId, String primaryOffenseDescription,
+      String crimeSubCategoryName) {
+    this.crimeCategoryId = crimeCategoryId;
     this.primaryOffenseDescription = primaryOffenseDescription;
     this.crimeSubCategoryName = crimeSubCategoryName;
+  }
+
+  public int getCrimeCategoryId() {
+    return crimeCategoryId;
+  }
+
+  public void setCrimeCategoryId(int crimeCategoryId) {
+    this.crimeCategoryId = crimeCategoryId;
   }
 
   public String getPrimaryOffenseDescription() {

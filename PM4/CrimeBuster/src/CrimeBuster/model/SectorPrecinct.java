@@ -2,6 +2,7 @@ package crimebuster.model;
 
 public class SectorPrecinct {
 
+  protected int sectorId;
   protected String sector;
   protected Precinct precinct;
 
@@ -9,9 +10,18 @@ public class SectorPrecinct {
     NORTH, WEST, EAST, SOUTH, SOUTHEAST, SOUTHWEST, UNKNOWN
   }
 
-  public SectorPrecinct(String sector, Precinct precinct) {
+  public SectorPrecinct(int sectorId, String sector, Precinct precinct) {
+    this.sectorId = sectorId;
     this.sector = sector;
     this.precinct = precinct;
+  }
+
+  public int getSectorId() {
+    return sectorId;
+  }
+
+  public void setSectorId(int sectorId) {
+    this.sectorId = sectorId;
   }
 
   public String getSector() {
