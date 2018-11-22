@@ -11,7 +11,7 @@
 <title>Find a Person</title>
 </head>
 <body>
-	<form action="findpersons" method="post">
+	<form action="findperson" method="post">
 		<h1>Search for a Person by FirstName</h1>
 		<p>
 			<label for="firstname">FirstName</label>

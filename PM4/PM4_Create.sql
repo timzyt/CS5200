@@ -61,7 +61,7 @@ CREATE TABLE Person(
 
 Create Table Admin(
 	UserName VARCHAR(255),
-    isAdmin BOOLEAN DEFAULT TRUE,
+    Level int,
     CONSTRAINT pk_Admin_UserName PRIMARY KEY (UserName),
     CONSTRAINT fk_Admin_UserName FOREIGN KEY (UserName)
     REFERENCES Person(UserName)

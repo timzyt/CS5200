@@ -1,4 +1,4 @@
-package servlet;
+package crimebuster.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dal.PersonDao;
-import model.Person;
+import crimebuster.dal.PersonDao;
+import crimebuster.model.Person;
 
 /**
  * Servlet implementation class PersonUpdate

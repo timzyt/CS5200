@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import javax.servlet.ServletException;
+
 /**
  * Use ConnectionManager to connect to your database instance.
  */
@@ -13,13 +15,13 @@ public class ConnectionManager {
   // User to connect to your database instance. By default, this is "root2".
   private final String user = "root";
   // Password for the user.
-  private final String password = "localhost1234";
+  private final String password = "Yingdong47!";
   // URI to your database server. If running on the same machine, then this is "localhost".
   private final String hostName = "localhost";
-  // Port to your database server. By default, this is 3307.
+  // Port to your database server. By default, this iws 3307.
   private final int port = 3306;
   // Name of the MySQL schema that contains your tables.
-  private final String schema = "CrimeBuster";
+  private final String schema = "crimebuster";
 
   /**
    * Get the connection to the database instance.
@@ -30,15 +32,15 @@ public class ConnectionManager {
       Properties connectionProperties = new Properties();
       connectionProperties.put("user", this.user);
       connectionProperties.put("password", this.password);
-      try {
-        Class.forName("com.mysql.cj.jdbc.Driver");
+            try {
+        Class.forName("com.mysql.jdbc.Driver");
       } catch (ClassNotFoundException e) {
         e.printStackTrace();
         throw new SQLException(e);
       }
       connection = DriverManager.getConnection(
-          "jdbc:mysql://" + this.hostName + ":" + this.port + "/" + this.schema
-              + "?serverTimezone=PST", connectionProperties);
+          "jdbc:mysql://" + this.hostName + ":" + this.port + "/" + this.schema + "?useSSL=false",
+          connectionProperties);
     } catch (SQLException e) {
       e.printStackTrace();
       throw e;

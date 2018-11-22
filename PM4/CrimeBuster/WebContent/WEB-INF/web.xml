@@ -4,5 +4,14 @@
   <welcome-file-list>
     <welcome-file>FindPerson.jsp</welcome-file>
   </welcome-file-list>
-
+  <!--
+  <servlet>
+    <servlet-name>FindPerson</servlet-name>
+    <servlet-class>crimebuster.servlet.FindPerson</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FindPerson</servlet-name>
+    <url-pattern>/findperson</url-pattern>
+  </servlet-mapping>
+  -->
 </web-app>

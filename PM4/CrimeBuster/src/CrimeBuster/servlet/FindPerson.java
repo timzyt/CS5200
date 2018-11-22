@@ -1,4 +1,5 @@
-package servlet;
+package crimebuster.servlet;
+import crimebuster.dal.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -13,13 +14,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dal.PersonDao;
-import model.Person;
+import crimebuster.dal.PersonDao;
+import crimebuster.model.Person;
 
 /**
  * Servlet implementation class FindPerson
  */
-@WebServlet("/FindPerson")
+@WebServlet("/findperson")
 public class FindPerson extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected PersonDao personDao;  

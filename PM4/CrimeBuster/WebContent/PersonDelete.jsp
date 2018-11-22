@@ -24,6 +24,9 @@
 			<input type="submit">
 			</span>
 		</p>
+		<a href="${pageContext.request.contextPath}/findperson" class="btn btn-success">
+    		Back
+		</a> 
 	</form>
 	<br/><br/>
 	
