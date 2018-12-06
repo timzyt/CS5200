@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import crimebuster.dal.UsersDao;
 import crimebuster.model.CrimeReports;
@@ -166,7 +168,8 @@ public class CrimeReportsDao {
 	 * @return CrimeReport
 	 * @throws SQLException
 	 */	
-	public CrimeReports getReportByUserName(String userName) throws SQLException {
+	public List<CrimeReports> getReportByUserName(String userName) throws SQLException {
+		List<CrimeReports> crimeReports = new ArrayList<CrimeReports>();
 		String selectCrimeReport =
 			"SELECT ReportId, UserName, OccurredTimeStamp, ReportedTimeStamp, InitialCallType, FinalCallType, Beat, NeighborhoodName, Zipcode " +
 			"FROM CrimeReports " +
@@ -198,7 +201,7 @@ public class CrimeReportsDao {
 				Neighborhood neighborhood = new Neighborhood(neighborhoodId);
 				Zipcode zipcode = new Zipcode(zipcodeId);
 				CrimeReports crimeReport = new CrimeReports(reportId, user, occurredTimeStamp, reportedTimeStamp, initialCallType, finalCallType, beatSector, neighborhood, zipcode);
-				return crimeReport;
+				crimeReports.add(crimeReport);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -214,10 +217,11 @@ public class CrimeReportsDao {
 				results.close();
 			}
 		}
-		return null;
+		return crimeReports;
 	}
 	
-		public CrimeReports getReportByZipcode(String zipcode) throws SQLException {
+		public List<CrimeReports> getReportByZipcode(String zipcode) throws SQLException {
+			List<CrimeReports> crimeReports = new ArrayList<CrimeReports>();
 			String selectCrimeReport =
 				"SELECT ReportId, UserName, OccurredTimeStamp, ReportedTimeStamp, InitialCallType, FinalCallType, Beat, NeighborhoodName, Zipcode " +
 				"FROM CrimeReports " +
@@ -249,7 +253,7 @@ public class CrimeReportsDao {
 					Neighborhood neighborhood = new Neighborhood(neighborhoodId);
 					Zipcode zipCode = new Zipcode(resultZipcodeId);
 					CrimeReports crimeReport = new CrimeReports(reportId, user, occurredTimeStamp, reportedTimeStamp, initialCallType, finalCallType, beatSector, neighborhood, zipCode);
-					return crimeReport;
+					crimeReports.add(crimeReport);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -265,6 +269,6 @@ public class CrimeReportsDao {
 					results.close();
 				}
 			}
-		return null;
+		return crimeReports;
 	}
 }

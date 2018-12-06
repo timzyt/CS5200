@@ -25,18 +25,17 @@ public class EditHistoryDao {
 	
 	public EditHistory create(EditHistory editHistory) throws SQLException{
 		String insertEditHistory = 
-				"INSERT INTO EditHistory(editHistoryId, userName, reportId, editTime, editComment) "
-				+ "VALUES(?,?,?,?,?);";
+				"INSERT INTO EditHistory(userName, reportId, editTime, editComment) "
+				+ "VALUES(?,?,?,?);";
 		Connection connection = null;
 		PreparedStatement insertStmt = null;
 		ResultSet resultKey = null;
 		try {
 			connection = connectionManager.getConnection();
 			insertStmt = connection.prepareStatement(insertEditHistory, Statement.RETURN_GENERATED_KEYS);
-			insertStmt.setInt(1, editHistory.getEditHistoryId());
-			insertStmt.setString(2, editHistory.getUser().getUserName());
-			insertStmt.setTimestamp(3, new Timestamp(editHistory.getEditTime().getTime()));
-			insertStmt.setString(4, editHistory.getEditComment());
+			insertStmt.setString(1, editHistory.getUser().getUserName());
+			insertStmt.setTimestamp(2, new Timestamp(editHistory.getEditTime().getTime()));
+			insertStmt.setString(3, editHistory.getEditComment());
 			insertStmt.executeUpdate();
 			
 			resultKey = insertStmt.getGeneratedKeys();

@@ -30,18 +30,17 @@ public class CommentsDao {
   }
 
   public Comments create(Comments comment) throws SQLException {
-    String insertComment = "INSERT INTO Comments(CommentId,UserName,ReportId,CommentContent,CommentTimeStamp) VALUES(?,?,?,?,?);";
+    String insertComment = "INSERT INTO Comments(UserName,ReportId,CommentContent,CommentTimeStamp) VALUES(?,?,?,?,?);";
     Connection connection = null;
     PreparedStatement insertStmt = null;
     ResultSet resultKey = null;
     try {
       connection = connectionManager.getConnection();
       insertStmt = connection.prepareStatement(insertComment, Statement.RETURN_GENERATED_KEYS);
-      insertStmt.setLong(1, comment.getCommentId());
-      insertStmt.setString(2, comment.getUser().getUserName());
-      insertStmt.setLong(3, comment.getReport().getReportId());
-      insertStmt.setString(4, comment.getCommentContent());
-      insertStmt.setTimestamp(5, new Timestamp(comment.getCommentTimestamp().getTime()));
+      insertStmt.setString(1, comment.getUser().getUserName());
+      insertStmt.setLong(2, comment.getReport().getReportId());
+      insertStmt.setString(3, comment.getCommentContent());
+      insertStmt.setTimestamp(4, new Timestamp(comment.getCommentTimestamp().getTime()));
       insertStmt.executeUpdate();
       resultKey = insertStmt.getGeneratedKeys();
       long commentId = -1;
