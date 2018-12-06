@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graph author="Tim Zhu" created="Wed Nov 28 14:39:31 PST 2018" guiVersion="5.0.3" id="1543477512016" licenseCode="CLP1DNORTH21665464EX" name="building_permit" showComponentDetails="true">
+<Global>
+<Metadata id="Metadata2">
+<Record fieldDelimiter="," name="Building_Permits_clean" previewAttachment="${DATAIN_DIR}/Building_Permits_clean.csv" previewAttachmentCharset="UTF-8" quoteChar="&quot;" quotedStrings="true" recordDelimiter="\r\n" skipSourceRows="1" type="delimited">
+<Field name="PermitNum" type="string"/>
+<Field name="PermitClass" type="string"/>
+<Field name="PermitClassMapped" type="string"/>
+<Field name="PermitTypeMapped" type="string"/>
+<Field name="PermitTypeDesc" type="string"/>
+<Field name="Description" type="string"/>
+<Field name="HousingUnits" type="string"/>
+<Field name="HousingUnitsRemoved" type="string"/>
+<Field name="HousingUnitsAdded" type="string"/>
+<Field name="EstProjectCost" type="string"/>
+<Field name="AppliedDate" type="string"/>
+<Field name="IssuedDate" type="string"/>
+<Field name="ExpiresDate" type="string"/>
+<Field format="yyyy-MM" name="CompletedDate" type="date"/>
+<Field name="StatusCurrent" type="string"/>
+<Field name="OriginalAddress1" type="string"/>
+<Field name="OriginalCity" type="string"/>
+<Field name="OriginalState" type="string"/>
+<Field name="OriginalZip" type="integer"/>
+<Field name="ContractorCompanyName" type="string"/>
+<Field name="Link" type="string"/>
+<Field name="Latitude" type="number"/>
+<Field name="Longitude" type="number"/>
+<Field eofAsDelimiter="true" name="Location_1" type="string"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata0">
+<Record fieldDelimiter="," name="Crime_Data_clean" previewAttachment="${DATAIN_DIR}/Crime_Data_clean.csv" previewAttachmentCharset="UTF-8" quoteChar="both" quotedStrings="true" recordDelimiter="\n" skipSourceRows="1" type="delimited">
+<Field name="ReportId" type="integer"/>
+<Field format="yyyy-MM" name="OccurredMonth" type="date"/>
+<Field format="yyyy-MM-dd" name="ReportedTimeStamp" type="date"/>
+<Field name="InitialCallType" type="string"/>
+<Field name="Beat" type="string"/>
+<Field name="NeighborhoodName" type="string"/>
+<Field eofAsDelimiter="true" name="Zipcode" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata4">
+<Record fieldDelimiter="," name="Crime_VS_BuildingPermit" previewAttachmentCharset="UTF-8" recordDelimiter="\r\n" type="delimited">
+<Field format="yyyy-MM" name="MonthOfYear" type="date"/>
+<Field name="CrimeCount" type="integer"/>
+<Field name="BuildingPermitCount" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata1">
+<Record fieldDelimiter="," name="CrimeAggre" previewAttachmentCharset="UTF-8" recordDelimiter="\r\n" type="delimited">
+<Field format="yyyy-MM-dd" name="OccuredMonth" type="date"/>
+<Field name="CrimeCount" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata3">
+<Record fieldDelimiter="," name="PermitAggre" previewAttachmentCharset="UTF-8" recordDelimiter="\r\n" type="delimited">
+<Field format="yyyy-MM" name="PermitMonth" type="date"/>
+<Field name="PermitCount" type="integer"/>
+</Record>
+</Metadata>
+<GraphParameters>
+<GraphParameterFile fileURL="workspace.prm"/>
+</GraphParameters>
+<Dictionary/>
+</Global>
+<Phase number="0">
+<Node aggregateKey="OccurredMonth" guiName="Aggregate" guiX="683" guiY="143" id="AGGREGATE" mapping="$OccuredMonth:=$OccurredMonth;$CrimeCount:=count();" sorted="false" type="AGGREGATE"/>
+<Node aggregateKey="CompletedDate" guiName="Aggregate" guiX="683" guiY="322" id="AGGREGATE1" mapping="$PermitMonth:=$CompletedDate;$PermitCount:=count();" sorted="false" type="AGGREGATE"/>
+<Node guiName="ExtHashJoin" guiX="880" guiY="223" id="EXT_HASH_JOIN" joinKey="$OccuredMonth=$PermitMonth" type="EXT_HASH_JOIN">
+<attr name="transform"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.0.MonthOfYear = $in.0.OccuredMonth;
+	$out.0.CrimeCount = $in.0.CrimeCount;
+	$out.0.BuildingPermitCount = $in.1.PermitCount * 2;
+
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node guiName="FastSort" guiX="493" guiY="43" id="FAST_SORT" sortKey="OccurredMonth(a)" type="FAST_SORT"/>
+<Node guiName="FastSort" guiX="493" guiY="387" id="FAST_SORT1" sortKey="CompletedDate(a)" type="FAST_SORT"/>
+<Node guiName="Filter" guiX="307" guiY="164" id="FILTER" type="EXT_FILTER">
+<attr name="filterExpression"><![CDATA[//#CTL2
+$in.0.OccurredMonth != null AND $in.0.OccurredMonth >= 2012-01-01 AND $in.0.OccurredMonth <= 2017-12-31 AND $in.0.InitialCallType == 'THEFT-SHOPLIFT']]></attr>
+</Node>
+<Node guiName="Filter" guiX="307" guiY="280" id="FILTER1" type="EXT_FILTER">
+<attr name="filterExpression"><![CDATA[//#CTL2
+$in.0.CompletedDate != null AND $in.0.CompletedDate >= 2012-01-01 AND $in.0.CompletedDate <= 2017-12-31 AND $in.0.PermitClass == 'Commercial']]></attr>
+</Node>
+<Node existingSheetsActions="REMOVE_SHEETS" fileURL="${DATAOUT_DIR}/theft_shoplift_vs_commercial_construction.xlsx" guiName="SpreadsheetDataWriter" guiX="1047" guiY="223" id="SPREADSHEET_DATA_WRITER" sheet="Sheet0" type="SPREADSHEET_WRITER" writeMode="OVERWRITE_SHEET_IN_MEMORY">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mapping>
+    <globalAttributes>
+        <orientation>VERTICAL</orientation>
+        <step>1</step>
+        <writeHeader>true</writeHeader>
+    </globalAttributes>
+    <defaultSkip>1</defaultSkip>
+    <headerGroups>
+        <headerGroup skip="1">
+            <cloverField>MonthOfYear</cloverField>
+            <headerRanges>
+                <headerRange begin="A1"/>
+            </headerRanges>
+        </headerGroup>
+        <headerGroup skip="1">
+            <cloverField>CrimeCount</cloverField>
+            <headerRanges>
+                <headerRange begin="B1"/>
+            </headerRanges>
+        </headerGroup>
+        <headerGroup skip="1">
+            <cloverField>BuildingPermitCount</cloverField>
+            <headerRanges>
+                <headerRange begin="C1"/>
+            </headerRanges>
+        </headerGroup>
+    </headerGroups>
+</mapping>
+]]></attr>
+</Node>
+<Node dataPolicy="lenient" fileURL="${DATAIN_DIR}/Crime_Data_clean.csv" guiName="UniversalDataReader" guiX="44" guiY="43" id="UNIVERSAL_DATA_READER" quotedStrings="true" skipRows="1" trim="true" type="DATA_READER"/>
+<Node dataPolicy="lenient" fileURL="${DATAIN_DIR}/Building_Permits_clean.csv" guiName="UniversalDataReader" guiX="44" guiY="379" id="UNIVERSAL_DATA_READER1" skipRows="1" trim="true" type="DATA_READER"/>
+<Edge fromNode="AGGREGATE:0" guiBendpoints="" guiRouter="Manhattan" id="Edge68" inPort="Port 0 (driver)" metadata="Metadata1" outPort="Port 0 (out)" toNode="EXT_HASH_JOIN:0"/>
+<Edge fromNode="AGGREGATE1:0" guiBendpoints="" guiRouter="Manhattan" id="Edge69" inPort="Port 1 (slave)" metadata="Metadata3" outPort="Port 0 (out)" toNode="EXT_HASH_JOIN:1"/>
+<Edge fromNode="EXT_HASH_JOIN:0" guiBendpoints="" guiRouter="Manhattan" id="Edge72" inPort="Port 0 (input)" metadata="Metadata4" outPort="Port 0 (out)" toNode="SPREADSHEET_DATA_WRITER:0"/>
+<Edge fromNode="FAST_SORT:0" guiBendpoints="" guiRouter="Manhattan" id="Edge44" inPort="Port 0 (in)" outPort="Port 0 (out)" toNode="AGGREGATE:0"/>
+<Edge fromNode="FAST_SORT1:0" guiBendpoints="" guiRouter="Manhattan" id="Edge47" inPort="Port 0 (in)" outPort="Port 0 (out)" toNode="AGGREGATE1:0"/>
+<Edge fromNode="FILTER:0" guiBendpoints="" guiRouter="Manhattan" id="Edge43" inPort="Port 0 (in)" outPort="Port 0 (accepted)" toNode="FAST_SORT:0"/>
+<Edge fromNode="FILTER1:0" guiBendpoints="" guiRouter="Manhattan" id="Edge60" inPort="Port 0 (in)" outPort="Port 0 (accepted)" toNode="FAST_SORT1:0"/>
+<Edge fromNode="UNIVERSAL_DATA_READER:0" guiBendpoints="" guiRouter="Manhattan" id="Edge42" inPort="Port 0 (in)" metadata="Metadata0" outPort="Port 0 (output)" toNode="FILTER:0"/>
+<Edge fromNode="UNIVERSAL_DATA_READER1:0" guiBendpoints="" guiRouter="Manhattan" id="Edge61" inPort="Port 0 (in)" metadata="Metadata2" outPort="Port 0 (output)" toNode="FILTER1:0"/>
+</Phase>
+</Graph>

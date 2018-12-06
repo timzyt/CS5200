@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graph author="zacharywong" created="Thu Nov 29 12:36:20 PST 2018" guiVersion="4.9.1" id="1543535347279" licenseCode="RegCode" name="CrimeWeather" showComponentDetails="true">
+<Global>
+<Metadata id="Metadata0">
+<Record fieldDelimiter="|" name="Crime" previewAttachmentCharset="UTF-8" recordDelimiter="\n" type="delimited">
+<Field name="Date" type="date"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata1">
+<Record fieldDelimiter="," name="crimedata2017" previewAttachment="${DATAIN_DIR}/crimedata2017.csv" previewAttachmentCharset="UTF-8" quoteChar="&quot;" quotedStrings="true" recordDelimiter="\r\n" skipSourceRows="1" type="delimited">
+<Field label="Report Number" name="Report_Number" type="number"/>
+<Field format="MM/dd/yy" label="Occurred Date" name="Occurred_Date" type="date"/>
+<Field label="Occurred Time" name="Occurred_Time" type="integer"/>
+<Field label="Reported Date" name="Reported_Date" type="date"/>
+<Field label="Reported Time" name="Reported_Time" type="integer"/>
+<Field label="Crime Subcategory" name="Crime_Subcategory" type="string"/>
+<Field label="Primary Offense Description" name="Primary_Offense_Description" type="string"/>
+<Field label="Precinct" name="Precinct" type="string"/>
+<Field label="Sector" name="Sector" type="string"/>
+<Field label="Beat" name="Beat" type="string"/>
+<Field eofAsDelimiter="true" label="Neighborhood" name="Neighborhood" type="string"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata2">
+<Record fieldDelimiter="," name="CrimeData2017" previewAttachment="${DATAIN_DIR}/crimedata2017.csv" previewAttachmentCharset="UTF-8" quoteChar="both" quotedStrings="false" recordDelimiter="\r\n" skipSourceRows="1" type="delimited">
+<Field label="Report Number" name="Report_Number" type="number"/>
+<Field format="MM/dd/yy" label="Occurred Date" name="Occurred_Date" type="date"/>
+<Field label="Occurred Time" name="Occurred_Time" type="integer"/>
+<Field format="MM/dd/yy" label="Reported Date" name="Reported_Date" type="date"/>
+<Field label="Reported Time" name="Reported_Time" type="integer"/>
+<Field label="Crime Subcategory" name="Crime_Subcategory" type="string"/>
+<Field label="Primary Offense Description" name="Primary_Offense_Description" type="string"/>
+<Field label="Precinct" name="Precinct" type="string"/>
+<Field label="Sector" name="Sector" type="string"/>
+<Field label="Beat" name="Beat" type="string"/>
+<Field eofAsDelimiter="true" label="Neighborhood" name="Neighborhood" type="string"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata7">
+<Record fieldDelimiter="," name="CrimeData2017" previewAttachment="${DATAIN_DIR}/CrimeData2017.csv" previewAttachmentCharset="UTF-8" quoteChar="both" quotedStrings="false" recordDelimiter="\r\n" skipSourceRows="1" type="delimited">
+<Field name="ReportId" type="integer"/>
+<Field name="UserName" type="string"/>
+<Field format="MM/dd/yy" name="Date" type="date"/>
+<Field format="MM/dd/yy" name="ReportedTimeStamp" type="date"/>
+<Field name="InitialCallType" type="string"/>
+<Field name="FinalCallType" type="string"/>
+<Field name="Beat" type="string"/>
+<Field name="NeighborhoodName" type="string"/>
+<Field eofAsDelimiter="true" name="Zipcode" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata10">
+<Record fieldDelimiter="|" name="CrimeRecordCount" previewAttachmentCharset="UTF-8" recordDelimiter="\n" type="delimited">
+<Field name="Date" type="date"/>
+<Field name="Zipcode" type="integer"/>
+<Field name="Count" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata4">
+<Record fieldDelimiter="," name="CrimeReport" previewAttachment="${DATAIN_DIR}/CrimeReport.csv" previewAttachmentCharset="UTF-8" quoteChar="both" quotedStrings="true" recordDelimiter="\n" skipSourceRows="1" type="delimited">
+<Field name="ReportId" type="integer"/>
+<Field name="UserName" type="string"/>
+<Field format="yyyy-MM-dd" name="OccurredTimeStamp" type="date"/>
+<Field format="yyyy-MM-dd" name="ReportedTimeStamp" type="date"/>
+<Field name="InitialCallType" type="string"/>
+<Field name="FinalCallType" type="string"/>
+<Field name="Beat" type="string"/>
+<Field name="NeighborhoodName" type="string"/>
+<Field eofAsDelimiter="true" name="Zipcode" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata6">
+<Record fieldDelimiter="," name="CrimeReport" previewAttachment="${DATAIN_DIR}/CrimeReport.csv" previewAttachmentCharset="UTF-8" quoteChar="both" quotedStrings="true" recordDelimiter="\n" skipSourceRows="1" type="delimited">
+<Field name="ReportId" type="integer"/>
+<Field name="UserName" type="string"/>
+<Field format="yyyy-MM-dd" name="OccurredTimeStamp" type="date"/>
+<Field format="yyyy-MM-dd" name="ReportedTimeStamp" type="date"/>
+<Field name="InitialCallType" type="string"/>
+<Field name="FinalCallType" type="string"/>
+<Field name="Beat" type="string"/>
+<Field name="NeighborhoodName" type="string"/>
+<Field eofAsDelimiter="true" name="Zipcode" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata5">
+<Record fieldDelimiter="," name="CrimeReport" previewAttachment="${DATAIN_DIR}/CrimeReport.csv" previewAttachmentCharset="UTF-8" quoteChar="both" quotedStrings="true" recordDelimiter="\n" skipSourceRows="1" type="delimited">
+<Field name="ReportId" type="integer"/>
+<Field name="UserName" type="string"/>
+<Field format="yyyy-MM-dd" name="OccurredTimeStamp" type="date"/>
+<Field format="yyyy-MM-dd" name="ReportedTimeStamp" type="date"/>
+<Field name="InitialCallType" type="string"/>
+<Field name="FinalCallType" type="string"/>
+<Field name="Beat" type="string"/>
+<Field name="NeighborhoodName" type="string"/>
+<Field eofAsDelimiter="true" name="Zipcode" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata12">
+<Record fieldDelimiter="|" name="CrimeReportOutput" previewAttachmentCharset="UTF-8" recordDelimiter="\n" type="delimited">
+<Field name="Date" type="date"/>
+<Field name="Zipcode" type="integer"/>
+<Field name="Count" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata8">
+<Record fieldDelimiter="," name="CrimeReports" previewAttachment="${DATAIN_DIR}/CrimeReports.csv" previewAttachmentCharset="UTF-8" quoteChar="both" quotedStrings="true" recordDelimiter="\n" skipSourceRows="1" type="delimited">
+<Field name="ReportId" type="integer"/>
+<Field name="UserName" type="string"/>
+<Field format="yyyy-MM-dd" name="OccurredTimeStamp" type="date"/>
+<Field format="yyyy-MM-dd" name="ReportedTimeStamp" type="date"/>
+<Field name="InitialCallType" type="string"/>
+<Field name="FinalCallType" type="string"/>
+<Field name="Beat" type="string"/>
+<Field name="NeighborhoodName" type="string"/>
+<Field eofAsDelimiter="true" name="Zipcode" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata9">
+<Record fieldDelimiter="," name="final_clean_road_weather_with_zip" previewAttachment="${DATAIN_DIR}/final_clean_road_weather_with_zip.csv" previewAttachmentCharset="UTF-8" quoteChar="&quot;" quotedStrings="true" recordDelimiter="\n" skipSourceRows="1" type="delimited">
+<Field name="StationName" type="string"/>
+<Field name="Location" type="string"/>
+<Field format="yyyy/MM/dd" name="Date" type="date"/>
+<Field name="Zipcode" type="integer"/>
+<Field name="AvgTemperature" type="number"/>
+<Field name="MaxTemperature" scale="2" type="decimal"/>
+<Field eofAsDelimiter="true" name="MinTemperature" scale="2" type="decimal"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata11">
+<Record fieldDelimiter="|" name="RecordResult" previewAttachmentCharset="UTF-8" recordDelimiter="\n" type="delimited">
+<Field name="Date" type="date"/>
+<Field name="Zipcode" type="integer"/>
+<Field name="CrimeCount" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata3">
+<Record fieldDelimiter="," name="Weather" previewAttachment="${DATAIN_DIR}/final_clean_road_weather_with_zip.csv" previewAttachmentCharset="UTF-8" quoteChar="&quot;" quotedStrings="true" recordDelimiter="\n" skipSourceRows="1" type="delimited">
+<Field name="StationName" type="string"/>
+<Field name="Location" type="string"/>
+<Field format="yyyy/MM/dd" name="Date" type="date"/>
+<Field name="Zipcode" type="integer"/>
+<Field name="AvgTemperature" type="number"/>
+<Field name="MaxTemperature" scale="2" type="decimal"/>
+<Field eofAsDelimiter="true" name="MinTemperature" scale="2" type="decimal"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata14">
+<Record fieldDelimiter="|" name="WeatherCrimeRelation" previewAttachmentCharset="UTF-8" recordDelimiter="\n" type="delimited">
+<Field name="Date" type="date"/>
+<Field name="Zipcode" type="integer"/>
+<Field name="CrimeCount" type="integer"/>
+<Field name="AvgTemp" type="number"/>
+<Field name="MaxTemp" type="decimal"/>
+<Field name="MinTemp" type="decimal"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata13">
+<Record fieldDelimiter="|" name="weatherOutput" previewAttachmentCharset="UTF-8" recordDelimiter="\n" type="delimited">
+<Field name="Date" type="date"/>
+<Field name="Zipcode" type="integer"/>
+<Field name="Count" type="integer"/>
+</Record>
+</Metadata>
+<GraphParameters>
+<GraphParameterFile fileURL="workspace.prm"/>
+</GraphParameters>
+<Dictionary/>
+</Global>
+<Phase number="0">
+<Node aggregateKey="OccurredTimeStamp;Zipcode" guiName="Aggregate" guiX="722" guiY="50" id="AGGREGATE" mapping="$Date:=$OccurredTimeStamp;$Zipcode:=$Zipcode;$CrimeCount:=count();" sorted="true" type="AGGREGATE"/>
+<Node guiName="ExtHashJoin" guiX="712" guiY="235" id="EXT_HASH_JOIN" joinKey="$Date=$Date;$Zipcode=$Zipcode" type="EXT_HASH_JOIN">
+<attr name="transform"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.0.Date = $in.0.Date;
+	$out.0.Zipcode = $in.0.Zipcode;
+	$out.0.CrimeCount = $in.0.CrimeCount;
+	$out.0.AvgTemp = $in.1.AvgTemperature;
+	$out.0.MaxTemp = $in.1.MaxTemperature;
+	$out.0.MinTemp = $in.1.MinTemperature;
+
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node guiName="ExtSort" guiX="535" guiY="114" id="EXT_SORT" sortKey="OccurredTimeStamp(a);Zipcode(a)" type="EXT_SORT"/>
+<Node guiName="Filter" guiX="329" guiY="126" id="FILTER" type="EXT_FILTER">
+<attr name="filterExpression"><![CDATA[//#CTL2
+$in.0.OccurredTimeStamp >= 2017-01-01 AND $in.0.OccurredTimeStamp <= 2017-12-31]]></attr>
+</Node>
+<Node existingSheetsActions="DO_NOTHING" fileURL="${DATAOUT_DIR}/WeatherCrimeData.xlsx" guiName="SpreadsheetDataWriter" guiX="919" guiY="235" id="SPREADSHEET_DATA_WRITER" type="SPREADSHEET_WRITER" writeMode="OVERWRITE_SHEET_IN_MEMORY"/>
+<Node dataPolicy="lenient" fileURL="${DATAIN_DIR}/CrimeReports.csv" guiName="UniversalDataReader" guiX="119" guiY="114" id="UNIVERSAL_DATA_READER" skipFirstLine="true" trim="true" type="DATA_READER"/>
+<Node dataPolicy="lenient" fileURL="${DATAIN_DIR}/final_clean_road_weather_with_zip.csv" guiName="UniversalDataReader" guiX="119" guiY="300" id="UNIVERSAL_DATA_READER1" skipFirstLine="true" trim="true" type="DATA_READER"/>
+<Edge fromNode="AGGREGATE:0" guiBendpoints="" guiRouter="Manhattan" id="Edge1" inPort="Port 0 (driver)" metadata="Metadata11" outPort="Port 0 (out)" toNode="EXT_HASH_JOIN:0"/>
+<Edge fromNode="EXT_HASH_JOIN:0" guiBendpoints="" guiRouter="Manhattan" id="Edge3" inPort="Port 0 (input)" metadata="Metadata14" outPort="Port 0 (out)" toNode="SPREADSHEET_DATA_WRITER:0"/>
+<Edge fromNode="EXT_SORT:0" guiBendpoints="" guiRouter="Manhattan" id="Edge12" inPort="Port 0 (in)" outPort="Port 0 (out)" toNode="AGGREGATE:0"/>
+<Edge fromNode="FILTER:0" guiBendpoints="" guiRouter="Manhattan" id="Edge8" inPort="Port 0 (in)" outPort="Port 0 (accepted)" toNode="EXT_SORT:0"/>
+<Edge fromNode="UNIVERSAL_DATA_READER:0" guiBendpoints="" guiRouter="Manhattan" id="Edge0" inPort="Port 0 (in)" metadata="Metadata8" outPort="Port 0 (output)" toNode="FILTER:0"/>
+<Edge fromNode="UNIVERSAL_DATA_READER1:0" guiBendpoints="" guiRouter="Manhattan" id="Edge2" inPort="Port 1 (slave)" metadata="Metadata3" outPort="Port 0 (output)" toNode="EXT_HASH_JOIN:1"/>
+</Phase>
+</Graph>
