@@ -20,48 +20,47 @@
 <body>
 	<h1>Insert Crime Report</h1>
 	<div>
-		<h1>Insert Report</h1>
 		
-		<form action="reportcreate" method="post">
+		<form action="reportadd" method="post">
 			<p>
-				<h2><label for="username">UserName</label></h2>
+				<label for="username">UserName</label>
 				<input id="username" name = "username" value ="">
 			</p>
 			<p>
-				<input type="text" id="datepicker" value = "${picker.toString()}">
+				<label for="occurredTimeStamp">Occurred Time</label>
+				<input id="occurredTimeStamp" name = "occurredTimeStamp" value ="">
 			</p>
 			
 			<p>
-				<div class="btn-group">
-					<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Crime Category
-					</button>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="">First Crime</a>
-						<a class="dropdown-item" href="">Second Crime</a>
-						<a class="dropdown-item" href="">Third Crime</a>
-					</div>
-				</div>
+				<label for="initialCallType">Crime Type</label>
+				<input id="initialCallType" name = "initialCallType" value ="">
 			</p>
 			
 			<p>
-				<h2><label for="beatsector">BeatSector</label></h2>
+				<label for="beatsector">BeatSector</label>
 			 	<input id="beatsector" name="beatsector" value="">
 			</p>
 			<p>
-				<h2><label for="neighborhood">Neighborhood</label></h2>
+				<label for="neighborhood">Neighborhood</label>
 			 	<input id="neighborhood" name="neighborhood" value="">
 			</p>
 			<p>
-				<h2><label for="zipcode">Zipcode</label></h2>
+				<label for="zipcode">Zipcode</label>
 			 	<input id="zipcode" name="zipcode" value="">
+			</p>
+			
+			<p>
+			<input type="submit">
+			</p>
+			<p>
+			<input type="button" class="btn"  value="Back" onclick="javascript:history.go(-1);"/>
 			</p>
 			
 		</form>	
 	</div>
-	
-	
-	
+	<p>
+		<span id="successMessage"><b>${messages.success}</b></span>
+	</p>
 	
 	<!-- Bootstrap -->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -71,8 +70,5 @@
      <script src="js/datetime.js"></script>
      <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
      <script src="pikaday.js"></script>
-<script>
-    var picker = new Pikaday({ field: document.getElementById('datepicker') });
-</script>
 </body>
 </html>

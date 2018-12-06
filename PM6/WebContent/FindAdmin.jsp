@@ -10,18 +10,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
-<title>Find a Person</title>
+<title>Find an Administrator</title>
 </head>
 <body>
 	<div class="container theme-showcase" role="main">
 	
-	<form action="findperson" method="post">
+	<form action="findadmin" method="post">
 		<div class="jumbotron">
-		<h1>Search for a Person by FirstName</h1>
+		<h1>Search for an Administrator by Level</h1>
 		</div>
 		<p>
-			<h2><label for="firstname">FirstName</label></h2>
-			<input id="firstname" name="firstname" value="${fn:escapeXml(param.firstname)}">
+			<h2><label for="level">Level</label></h2>
+			<input id="level" name="level" value="${fn:escapeXml(param.level)}">
 		</p>
 		<p>
 			<input type="submit">
@@ -30,9 +30,8 @@
 		</p>
 	</form>
 	<br/>
-	<h3><div id="personCreate"><a href="personcreate">Create Person</a></div></h3>
 	<br/>
-	<h1>Matching Persons</h1>
+	<h1>Matching Admins</h1>
       
        <table class="table table-striped">
        	<tr>
@@ -41,22 +40,19 @@
        		<th>LastName</th>
        		<th>Email</th>
        		<th>Phone</th>
-       		<th>CrimeReports</th>
-       		<th>Comments</th>
-       		<th>Delete Person</th>
-       		<th>Update Person</th>
+       		<th>Level</th>
+       		<th>EditHistory</th>
+       		<th>Delete Admin</th>
+       		<th>Update Admin</th>
        	</tr>
-       	<c:forEach items="${persons}" var="person">
+       	<c:forEach items="${admins}" var="admin">
        		<tbody><tr>
-       			<td><c:out value="${person.getUserName()}" /></td>
-       			<td><c:out value="${person.getFirstName()}" /></td>
-       			<td><c:out value="${person.getLastName()}" /></td>
-       			<td><c:out value="${person.getEmail()}" /></td>
-       			<td><c:out value="${person.getPhone()}" /></td>
-       			<td><a href="findreport?username=<c:out value="${person.getUserName()}" />">CrimeReports</a></td>
-       			<td><a href="UserComment?username=<c:out value="${person.getUserName()}" />">Comments</a></td>
-       			<td><a href="persondelete?username=<c:out value="${person.getUserName()}" />">Delete Person</a></td>
-       			<td><a href="personupdate?username=<c:out value="${person.getUserName()}" />">Update Person</a></td>
+       			<td><c:out value="${admin.getUserName()}" /></td>
+       			<td><c:out value="${admin.getFirstName()}" /></td>
+       			<td><c:out value="${admin.getLastName()}" /></td>
+       			<td><c:out value="${admin.getEmail()}" /></td>
+       			<td><c:out value="${admin.getPhone()}" /></td>
+       			<td><a href="findhistory?username=<c:out value="${admin.getUserName()}" />">EditHistory</a></td>
        		</tr></tbody>
        	</c:forEach>
        </table>

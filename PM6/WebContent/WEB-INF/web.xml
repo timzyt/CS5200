@@ -4,4 +4,14 @@
   <welcome-file-list>
     <welcome-file>FindPerson.jsp</welcome-file>
   </welcome-file-list>
+  <!--
+  <servlet>
+    <servlet-name>FindReport</servlet-name>
+    <servlet-class>blog.servlet.FindReport</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FindReport</servlet-name>
+    <url-pattern>/findreport</url-pattern>
+  </servlet-mapping>
+  -->
 </web-app>
