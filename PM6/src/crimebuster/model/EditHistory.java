@@ -4,13 +4,13 @@ import java.util.Date;
 
 public class EditHistory {
 
-  protected int editHistoryId;
+  protected long editHistoryId;
   protected Users user;
   protected CrimeReports report;
   protected Date editTime;
   protected String editComment;
 
-  public EditHistory(int editHistoryId, Users user, CrimeReports report, Date editTime,
+  public EditHistory(long editHistoryId, Users user, CrimeReports report, Date editTime,
       String editComment) {
     this.editHistoryId = editHistoryId;
     this.user = user;
@@ -31,7 +31,7 @@ public class EditHistory {
     this.editComment = editComment;
   }
 
-  public int getEditHistoryId() {
+  public long getEditHistoryId() {
     return editHistoryId;
   }
 

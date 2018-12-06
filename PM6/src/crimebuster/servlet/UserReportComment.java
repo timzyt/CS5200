@@ -14,72 +14,55 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import crimebuster.dal.PersonDao;
-import crimebuster.model.Person;
+import crimebuster.dal.UsersDao;
+import crimebuster.model.Users;
+import crimebuster.dal.CrimeReportsDao;
+import crimebuster.model.CrimeReports;
+import crimebuster.dal.CommentsDao;
+import crimebuster.model.Comments;
 
-/**
- * Servlet implementation class FindPerson
- */
-@WebServlet("/findperson")
+
+@WebServlet("/findreportcomments")
 public class UserReportComment extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	protected PersonDao personDao;  
-    
+	protected CommentsDao commentsDao;  
+	
 	@Override
 	public void init() throws ServletException {
-		personDao = PersonDao.getInstance();
+		commentsDao = CommentsDao.getInstance();
 	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		  Map<String, String> messages = new HashMap<String, String>();
-	      request.setAttribute("messages", messages);
-	      
-	      List<Person> persons = new ArrayList<Person>();
-	      String firstName = request.getParameter("firstname");
-	      if (firstName == null || firstName.trim().isEmpty()) {
-	    	  	messages.put("success", "Please enter a valid name.");
-	      } else {
-	    	  try {
-	    		persons = personDao.getPersonsFromFirstName(firstName);
-	    	  } catch (SQLException e) {
+    
+	@Override
+	public void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		// Map for storing messages.
+        Map<String, String> messages = new HashMap<String, String>();
+        req.setAttribute("messages", messages);
+		
+        List<Comments> comments = new ArrayList<Comments>();
+        
+		// Retrieve Comments depending on valid PostId or UserName.
+        String reportId = req.getParameter("reportid");
+        String userName = req.getParameter("username");
+        
+        try {
+	        if (reportId != null && !reportId.trim().isEmpty()) {
+	        	// If the reportid param is provided then ignore the username param.
+	        	comments = commentsDao.getCommentsForCrimeReport(Long.parseLong(reportId));
+	        	messages.put("reportId", "Comments for ReportId " + reportId);
+	        } else if (userName != null && !userName.trim().isEmpty()) {
+	        	// If reportid is invalid, then use the username param.
+	        	Users user = new Users(userName);
+	        	comments = commentsDao.getBlogCommentsForUser(user);
+	        	messages.put("title", "BlogComments for UserName " + userName);
+	        } else {
+	        	messages.put("title", "Invalid PostId and UserName.");
+	        }
+        } catch (SQLException e) {
 			e.printStackTrace();
 			throw new IOException(e);
-			}
-	    	 	messages.put("success", "Displaying results for " + firstName);
-	    		messages.put("previousFirstName", firstName);
-	      }
-	      request.setAttribute("previousFirstName", firstName);
-	      
-	      request.getRequestDispatcher("/FindPerson.jsp").forward(request, response);
+        }
+        
+        req.setAttribute("comments", comments);
+        req.getRequestDispatcher("/UserPostBlogComments.jsp").forward(req, resp);
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 Map<String, String> messages = new HashMap<String, String>();
-	     request.setAttribute("messages", messages);
-	     
-	     List<Person> persons = new ArrayList<>();
-	     String firstName = request.getParameter("firstname");
-	        if (firstName == null || firstName.trim().isEmpty()) {
-	            messages.put("success", "Please enter a valid name.");
-	        } else {
-	        	// Retrieve BlogUsers, and store as a message.
-	        	try {
-	            	persons = personDao.getPersonsFromFirstName(firstName);
-	            } catch (SQLException e) {
-	    			e.printStackTrace();
-	    			throw new IOException(e);
-	            }
-	        	messages.put("success", "Displaying results for " + firstName);
-	        }
-	        request.setAttribute("persons", persons);
-	        
-	        request.getRequestDispatcher("/FindPerson.jsp").forward(request, response);
-	}
-
 }

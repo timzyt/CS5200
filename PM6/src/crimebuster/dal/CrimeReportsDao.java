@@ -220,19 +220,19 @@ public class CrimeReportsDao {
 		return crimeReports;
 	}
 	
-		public List<CrimeReports> getReportByZipcode(String zipcode) throws SQLException {
+		public List<CrimeReports> getReportByZipcode(int zipcodeId) throws SQLException {
 			List<CrimeReports> crimeReports = new ArrayList<CrimeReports>();
 			String selectCrimeReport =
 				"SELECT ReportId, UserName, OccurredTimeStamp, ReportedTimeStamp, InitialCallType, FinalCallType, Beat, NeighborhoodName, Zipcode " +
 				"FROM CrimeReports " +
-				"WHERE UserName=?;";
+				"WHERE zipcodeId=?;";
 			Connection connection = null;
 			PreparedStatement selectStmt = null;
 			ResultSet results = null;
 			try {
 				connection = connectionManager.getConnection();
 				selectStmt = connection.prepareStatement(selectCrimeReport);
-				selectStmt.setString(1, zipcode);
+				selectStmt.setInt(1, zipcodeId);
 				results = selectStmt.executeQuery();
 				UsersDao usersDao = UsersDao.getInstance();
 				if(results.next()) {
@@ -244,7 +244,7 @@ public class CrimeReportsDao {
 					int finalCallTypeId = results.getInt("FinalCallType");
 					int beatId = results.getInt("BeatId");
 					int neighborhoodId = results.getInt("Neighborhood");
-					int resultZipcodeId = results.getInt("Zipcode");		
+					int resultZipcodeId = results.getInt("ZipcodeId");		
 					
 					Users user = usersDao.getUserFromUserName(userName);
 					CrimeCategory initialCallType = new CrimeCategory(initialCallTypeId);
