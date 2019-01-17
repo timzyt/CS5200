@@ -19,8 +19,8 @@
 	<form action="reportdelete" method="post">
 		<p>
 			<div <c:if test="${messages.disableSubmit}">style="display:none"</c:if>>
-				<h2><label for="zipcodeId">ZipcodeId</label></h2>
-				<input id="zipcodeId" name="zipcodeId" value="${fn:escapeXml(param.zipcodeId)}">
+				<label for="reportId">ReportID</label>
+				<input id="reportId" name="reportId" value="${fn:escapeXml(param.reportId)}">
 			</div>
 		</p>
 		<p>
@@ -28,8 +28,17 @@
 			<input type="submit" class="btn btn-lg btn-primary">
 			</span>
 		</p>
-	</form>>
+			<a href="/CrimeBuster">
+			<input type="button" class="btn btn-lg btn-primary" value="Back">
+			</a>
+	</form>
 	<br/><br/>
 	</div>
+	
+		<!-- Bootstrap -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
 </body>
 </html>

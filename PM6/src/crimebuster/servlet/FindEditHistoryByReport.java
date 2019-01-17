@@ -18,67 +18,64 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class FindEditHistoryByUser
+ * Servlet implementation class FindEditHistoryByReport
  */
 @WebServlet("/findedithistorybyreport")
 public class FindEditHistoryByReport extends HttpServlet {
+	
+	protected EditHistoryDao editHistoryDao;
 
-  private static final long serialVersionUID = 1L;
-  protected EditHistoryDao editHistoryDao;
+	  @Override
+	  public void init() throws ServletException {
+	    editHistoryDao = EditHistoryDao.getInstance();
+	  }
 
-  @Override
-  public void init() throws ServletException {
-    editHistoryDao = EditHistoryDao.getInstance();
-  }
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Map<String, String> messages = new HashMap<>();
+	    request.setAttribute("messages", messages);
+	    List<EditHistory> editHistories = new ArrayList<>();
+	    String reportId = request.getParameter("ReportId");
+	    if (reportId == null || reportId.trim().isEmpty()) {
+	      messages.put("success", "Please enter a valid report id.");
+	    } else {
+	      try {
+	        CrimeReports report = CrimeReportsDao.getInstance().getReportById(Long.parseLong(reportId));
+	        editHistories = editHistoryDao.getEditHistoryForCrimeReport(report);
+	      } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw new IOException(e);
+	      }
+	      messages.put("success", "Displaying results for report id " + reportId);
+	      messages.put("previousReportId", reportId);
+	    }
+	    request.setAttribute("editHistories", editHistories);
+	    request.getRequestDispatcher("/FindEditHistoryByReport.jsp").forward(request, response);
+	}
 
-  /**
-   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-   */
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    Map<String, String> messages = new HashMap<>();
-    request.setAttribute("messages", messages);
-    List<EditHistory> editHistories = new ArrayList<>();
-    String reportId = request.getParameter("ReportId");
-    if (reportId == null || reportId.trim().isEmpty()) {
-      messages.put("success", "Please enter a valid report id.");
-    } else {
-      try {
-        CrimeReports report = CrimeReportsDao.getInstance().getReportById(Long.parseLong(reportId));
-        editHistories = editHistoryDao.getEditHistoryForCrimeReport(report);
-      } catch (SQLException e) {
-        e.printStackTrace();
-        throw new IOException(e);
-      }
-      messages.put("success", "Displaying results for report id " + reportId);
-      messages.put("previousReportId", reportId);
-    }
-    request.setAttribute("editHistories", editHistories);
-    request.getRequestDispatcher("/FindEditHistoryByReport.jsp").forward(request, response);
-  }
-
-  /**
-   * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-   */
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    Map<String, String> messages = new HashMap<>();
-    request.setAttribute("messages", messages);
-    List<EditHistory> editHistories = new ArrayList<>();
-    String reportId = request.getParameter("ReportId");
-    if (reportId == null || reportId.trim().isEmpty()) {
-      messages.put("success", "Please enter a valid report id.");
-    } else {
-      try {
-        CrimeReports report = CrimeReportsDao.getInstance().getReportById(Long.parseLong(reportId));
-        editHistories = editHistoryDao.getEditHistoryForCrimeReport(report);
-      } catch (SQLException e) {
-        e.printStackTrace();
-        throw new IOException(e);
-      }
-      messages.put("success", "Displaying results for report id " + reportId);
-    }
-    request.setAttribute("editHistories", editHistories);
-    request.getRequestDispatcher("/FindEditHistoryByReport.jsp").forward(request, response);
-  }
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Map<String, String> messages = new HashMap<>();
+	    request.setAttribute("messages", messages);
+	    List<EditHistory> editHistories = new ArrayList<>();
+	    String reportId = request.getParameter("ReportId");
+	    if (reportId == null || reportId.trim().isEmpty()) {
+	      messages.put("success", "Please enter a valid report id.");
+	    } else {
+	      try {
+	        CrimeReports report = CrimeReportsDao.getInstance().getReportById(Long.parseLong(reportId));
+	        editHistories = editHistoryDao.getEditHistoryForCrimeReport(report);
+	      } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw new IOException(e);
+	      }
+	      messages.put("success", "Displaying results for report id " + reportId);
+	    }
+	    request.setAttribute("editHistories", editHistories);
+	    request.getRequestDispatcher("/FindEditHistoryByReport.jsp").forward(request, response);
+	  }
 }

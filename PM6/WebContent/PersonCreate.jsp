@@ -8,10 +8,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href="css/bootstrap.min.css" rel="stylesheet">
 <title>Create a Person</title>
 </head>
 <body>
+<div class="container theme-showcase" role="main">
+	<div class="jumbotron">
 	<h1>Create Person</h1>
+	</div>
 	<form action="personcreate" method="post">
 		<p>
 			<label for="username">UserName</label>
@@ -39,16 +43,23 @@
 		</p>
 	
 		<p>
-			<input type="submit">
+			<input type="submit" class="btn btn-lg btn-primary">
 		</p>
-		<a href="${pageContext.request.contextPath}/findperson" class="btn btn-success">
-    		Back
-		</a> 
-		
+			<a href="/CrimeBuster">
+			<input type="button" class="btn btn-lg btn-primary" value="Back">
+			</a>
 	</form>
 	<br/><br/>
 	<p>
+		<div class="alert alert-success" role="alert">
 		<span id="successMessage"><b>${messages.success}</b></span>
+		</div>
 	</p>
+	</div>
+		<!-- Bootstrap -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
 </body>
 </html>

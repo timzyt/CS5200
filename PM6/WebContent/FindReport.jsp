@@ -1,21 +1,21 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <title>Find a Report</title>
 </head>
-<body>
+<body style="background-image: url('image/background0.jpg')">
 	<div class="container theme-showcase" role="main">
     
 	<form action="findreport" method="post">
 	    <div class="jumbotron">
-		<h1>Search for a CrimeReport</h1>
+		<h1>CrimeReport Search</h1>
 		</div>
 		<p>
 			<h2><label for="zipcodeId">ZipcodeId</label></h2>
@@ -46,20 +46,22 @@
                 <th>Zipcode</th>
                 <th>Comments</th>
                 <th>Delete CrimeReport</th>
+            <!--     <th>Comments</th> -->
             </tr></thead>
-            <c:forEach items="${crimeReports}" var="crimeReports" >
+            <c:forEach items="${crimeReports}" var="crimeReport" >
                 <tbody><tr>
-                    <td><c:out value="${crimeReports.getReportId()}" /></td>
-                    <td><c:out value="${crimeReports.getUser().getUserName()}" /></td>
-                    <td><fmt:formatDate value="${crimeReports.getOccurredTimeStamp()}" pattern="yyyy-MM-dd"/></td>
-                    <td><fmt:formatDate value="${crimeReports.getReportedTimeStamp()}" pattern="yyyy-MM-dd"/></td>
-                		<td><c:out value="${crimeReports.getInitialCallType().getCrimeCategoryId()}" /></td>
-                		<td><c:out value="${crimeReports.getFinalCallType().getCrimeCategoryId()}" /></td>
-                		<td><c:out value="${crimeReports.getBeat().getBeatId()}" /></td>
-                		<td><c:out value="${crimeReports.getNeighborhood().getNeighborhoodId()}" /></td>
-                		<td><c:out value="${crimeReports.getZipcode().getZipcodeId()}" /></td>
-                		<td><a href="reportcomments?zipcodeId=<c:out value="${crimeReports.getZipcode()}"/>">ReportComments</a></td>
-                    <td><a href="reportdelete?zipcodeId=<c:out value="${blogUser.getZipcode()}"/>">Delete</a></td> 
+                    <td><c:out value="${crimeReport.getReportId()}" /></td>
+                    <td><c:out value="${crimeReport.getUser().getUserName()}" /></td>
+                    <td><fmt:formatDate value="${crimeReport.getOccurredTimeStamp()}" pattern="yyyy-MM-dd"/></td>
+                    <td><fmt:formatDate value="${crimeReport.getReportedTimeStamp()}" pattern="yyyy-MM-dd"/></td>
+                		<td><c:out value="${crimeReport.getInitialCallType().getCrimeCategoryId()}" /></td>
+                		<td><c:out value="${crimeReport.getFinalCallType().getCrimeCategoryId()}" /></td>
+                		<td><c:out value="${crimeReport.getBeat().getBeatId()}" /></td>
+                		<td><c:out value="${crimeReport.getNeighborhood().getNeighborhoodId()}" /></td>
+                		<td><c:out value="${crimeReport.getZipcode().getZipcodeId()}" /></td>
+                		<td><a href="reportcomments?reportId=<c:out value="${crimeReport.getReportId()}"/>">Report Comments</a></td>
+                    <td><a href="reportdelete?reportId=<c:out value="${crimeReport.getReportId()}"/>">Delete</a>
+     <%--            		<td><a href="reportcomments?zipcodeId=<c:out value="${crimeReport.getZipcode()}"/>">ReportComments</a></td> --%>
                 </tr></tbody>
             </c:forEach>
        </table>

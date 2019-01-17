@@ -30,22 +30,23 @@ public class CommentsDao {
   }
 
   public Comments create(Comments comment) throws SQLException {
-    String insertComment = "INSERT INTO Comments(UserName,ReportId,CommentContent,CommentTimeStamp) VALUES(?,?,?,?);";
+    String insertComment = "INSERT INTO Comments(CommentId,UserName,ReportId,CommentContent,CommentTimeStamp) VALUES(?,?,?,?,?);";
     Connection connection = null;
     PreparedStatement insertStmt = null;
     ResultSet resultKey = null;
     try {
       connection = connectionManager.getConnection();
       insertStmt = connection.prepareStatement(insertComment, Statement.RETURN_GENERATED_KEYS);
-      insertStmt.setString(1, comment.getUser().getUserName());
-      insertStmt.setLong(2, comment.getReport().getReportId());
-      insertStmt.setString(3, comment.getCommentContent());
-      insertStmt.setTimestamp(4, new Timestamp(comment.getCommentTimestamp().getTime()));
+      insertStmt.setLong(1, comment.getCommentId());
+      insertStmt.setString(2, comment.getUser().getUserName());
+      insertStmt.setLong(3, comment.getReport().getReportId());
+      insertStmt.setString(4, comment.getCommentContent());
+      insertStmt.setTimestamp(5, new Timestamp(comment.getCommentTimestamp().getTime()));
       insertStmt.executeUpdate();
       resultKey = insertStmt.getGeneratedKeys();
       long commentId = -1;
       if (resultKey.next()) {
-        commentId = resultKey.getInt(1);
+        commentId = resultKey.getLong(1);
       } else {
         throw new SQLException("Unable to retrieve auto-generated key.");
       }
@@ -128,7 +129,8 @@ public class CommentsDao {
   }
 
   /**
-   * Get all the Comments by commentId.
+   * Get the Comments record by fetching it from your MySQL instance. This runs a SELECT statement
+   * and returns a single Person instance.
    */
   public Comments getCommentsFromCommentId(long commentId) throws SQLException {
     String selectComment = "SELECT CommentId,UserName,ReportId,CommentContent,CommentTimeStamp FROM Comments WHERE CommentId=?;";
@@ -170,67 +172,28 @@ public class CommentsDao {
   }
 
   /**
-   * Get all the Comments by reportId.
+   * Get the all the Comments for a crime report.
    */
-  public List<Comments> getCommentsForCrimeReport(long reportId) throws SQLException {
+  public List<Comments> getCommentsForCrimeReport(CrimeReports report) throws SQLException {
     List<Comments> comments = new ArrayList<>();
-    String selectComments = "SELECT CommentId,UserName,ReportId,CommentContent,CommentTimeStamp FROM Comments WHERE ReportId=?;";
+    String selectComments = "SELECT CommentId,UserName,ReportId,CommentContent, CommentTimeStamp FROM Comments WHERE ReportId=?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
     ResultSet results = null;
     try {
       connection = connectionManager.getConnection();
       selectStmt = connection.prepareStatement(selectComments);
-      selectStmt.setLong(1, reportId);
+      selectStmt.setLong(1, report.getReportId());
       results = selectStmt.executeQuery();
       UsersDao usersDao = UsersDao.getInstance();
       while (results.next()) {
-        long commentId = results.getInt("CommentId");
-        CrimeReports crimeReport = new CrimeReports(reportId);
+        long commentId = results.getLong("CommentId");
+        String userName = results.getString("UserName");
+        long reportId = results.getLong("ReportId");
         String commentContent = results.getString("CommentContent");
         Date commentTimeStamp = new Date(results.getTimestamp("CommentTimeStamp").getTime());
-        Users user = usersDao.getUserFromUserName("UserName");
-        Comments comment = new Comments(commentId, user, crimeReport, commentContent, commentTimeStamp);
-        comments.add(comment);
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      throw e;
-    } finally {
-      if (connection != null) {
-        connection.close();
-      }
-      if (selectStmt != null) {
-        selectStmt.close();
-      }
-      if (results != null) {
-        results.close();
-      }
-    }
-    return comments;
-  }
-  
-  /**
-   * Get all the Comments by reportId.
-   */
-  public List<Comments> getBlogCommentsForUser(Users user) throws SQLException {
-    List<Comments> comments = new ArrayList<>();
-    String selectComments = "SELECT CommentId,userName,report,CommentContent,CommentTimeStamp FROM Comments WHERE UserName=?;";
-    Connection connection = null;
-    PreparedStatement selectStmt = null;
-    ResultSet results = null;
-    try {
-      connection = connectionManager.getConnection();
-      selectStmt = connection.prepareStatement(selectComments);
-      selectStmt.setString(1, user.getUserName());
-      results = selectStmt.executeQuery();
-      UsersDao usersDao = UsersDao.getInstance();
-      while (results.next()) {
-        long commentId = results.getInt("CommentId");
-        long reportId = results.getLong("ReportId"); 
-        String commentContent = results.getString("CommentContent");
-        Date commentTimeStamp = new Date(results.getTimestamp("CommentTimeStamp").getTime());
-        CrimeReports report = new CrimeReports(reportId);
+        
+        Users user = new Users(userName);
         Comments comment = new Comments(commentId, user, report, commentContent, commentTimeStamp);
         comments.add(comment);
       }

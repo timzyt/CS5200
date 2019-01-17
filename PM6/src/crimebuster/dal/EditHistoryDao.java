@@ -7,10 +7,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 
-import crimebuster.model.*;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import crimebuster.model.CrimeReports;
+import crimebuster.model.EditHistory;
+import crimebuster.model.Users;
 
 public class EditHistoryDao {
 

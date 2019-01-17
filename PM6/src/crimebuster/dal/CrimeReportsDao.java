@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.sun.org.apache.xerces.internal.util.EntityResolver2Wrapper;
+
 import crimebuster.dal.UsersDao;
 import crimebuster.model.CrimeReports;
 import crimebuster.model.Users;
@@ -113,7 +115,7 @@ public class CrimeReportsDao {
 	 */
 	public CrimeReports getReportById(long reportId) throws SQLException {
 		String selectCrimeReport =
-			"SELECT ReportId, UserName, OccurredTimeStamp, ReportedTimeStamp, InitialCallTypeId, FinalCallTypeId, BeatId, NeighborhoodId, ZipcodeId" +
+			"SELECT ReportId, UserName, OccurredTimeStamp, ReportedTimeStamp, InitialCallTypeId, FinalCallTypeId, BeatId, NeighborhoodId, ZipcodeId " +
 			"FROM CrimeReports " +
 			"WHERE ReportId=?;";
 		Connection connection = null;
@@ -130,11 +132,11 @@ public class CrimeReportsDao {
 				String userName = results.getString("UserName");
 				Date occurredTimeStamp = new Date(results.getTimestamp("OccurredTimeStamp").getTime());
 				Date reportedTimeStamp = new Date(results.getTimestamp("ReportedTimeStamp").getTime());
-				int initialCallTypeId = results.getInt("InitialCallTypeId");
-				int finalCallTypeId = results.getInt("FinalCallTypeId");
+				int initialCallTypeId = results.getInt("InitialCallType");
+				int finalCallTypeId = results.getInt("FinalCallType");
 				int beatId = results.getInt("BeatId");
-				int neighborhoodId = results.getInt("NeighborhoodId");
-				int zipcodeId = results.getInt("ZipcodeId");		
+				int neighborhoodId = results.getInt("Neighborhood");
+				int zipcodeId = results.getInt("Zipcode");		
 				
 				Users user = usersDao.getUserFromUserName(userName);
 				CrimeCategory initialCallType = new CrimeCategory(initialCallTypeId);
@@ -169,9 +171,9 @@ public class CrimeReportsDao {
 	 * @throws SQLException
 	 */	
 	public List<CrimeReports> getReportByUserName(String userName) throws SQLException {
-		List<CrimeReports> crimeReports = new ArrayList<CrimeReports>();
+		List<CrimeReports> crimeReports = new ArrayList<>();
 		String selectCrimeReport =
-			"SELECT ReportId, UserName, OccurredTimeStamp, ReportedTimeStamp, InitialCallTypeId, FinalCallTypeId, BeatId, NeighborhoodId, ZipcodeId" +
+			"SELECT ReportId, UserName, OccurredTimeStamp, ReportedTimeStamp, InitialCallType, FinalCallType, Beat, NeighborhoodName, Zipcode " +
 			"FROM CrimeReports " +
 			"WHERE UserName=?;";
 		Connection connection = null;
@@ -183,16 +185,16 @@ public class CrimeReportsDao {
 			selectStmt.setString(1, userName);
 			results = selectStmt.executeQuery();
 			UsersDao usersDao = UsersDao.getInstance();
-			if(results.next()) {
+			while(results.next()) {
 				Long reportId = results.getLong("ReportId");
 				String resultUserName = results.getString("UserName");
 				Date occurredTimeStamp = new Date(results.getTimestamp("OccurredTimeStamp").getTime());
 				Date reportedTimeStamp = new Date(results.getTimestamp("ReportedTimeStamp").getTime());
-				int initialCallTypeId = results.getInt("InitialCallTypeId");
-				int finalCallTypeId = results.getInt("FinalCallTypeId");
+				int initialCallTypeId = results.getInt("InitialCallType");
+				int finalCallTypeId = results.getInt("FinalCallType");
 				int beatId = results.getInt("BeatId");
-				int neighborhoodId = results.getInt("NeighborhoodId");
-				int zipcodeId = results.getInt("ZipcodeId");		
+				int neighborhoodId = results.getInt("Neighborhood");
+				int zipcodeId = results.getInt("Zipcode");		
 				
 				Users user = usersDao.getUserFromUserName(resultUserName);
 				CrimeCategory initialCallType = new CrimeCategory(initialCallTypeId);
@@ -220,22 +222,23 @@ public class CrimeReportsDao {
 		return crimeReports;
 	}
 	
-		public List<CrimeReports> getReportByZipcode(int zipcodeId) throws SQLException {
-			List<CrimeReports> crimeReports = new ArrayList<CrimeReports>();
+		public List<CrimeReports> getReportByZipcode(int zipcode) throws SQLException {
+			List<CrimeReports> crimeReports = new ArrayList<>();
 			String selectCrimeReport =
-				"SELECT ReportId, UserName, OccurredTimeStamp, ReportedTimeStamp, InitialCallTypeId, FinalCallTypeId, BeatId, NeighborhoodId, ZipcodeId" +
+				"SELECT ReportId, UserName, OccurredTimeStamp, ReportedTimeStamp, InitialCallTypeId, FinalCallTypeId, BeatId, NeighborhoodId, ZipcodeId " +
 				"FROM CrimeReports " +
-				"WHERE zipcodeId=?;";
+				"WHERE ZipcodeId=?"
+				+ " ORDER BY OccurredTimeStamp DESC;";
 			Connection connection = null;
 			PreparedStatement selectStmt = null;
 			ResultSet results = null;
 			try {
 				connection = connectionManager.getConnection();
 				selectStmt = connection.prepareStatement(selectCrimeReport);
-				selectStmt.setInt(1, zipcodeId);
+				selectStmt.setInt(1, zipcode);
 				results = selectStmt.executeQuery();
 				UsersDao usersDao = UsersDao.getInstance();
-				if(results.next()) {
+				while(results.next()) {
 					Long reportId = results.getLong("ReportId");
 					String userName = results.getString("UserName");
 					Date occurredTimeStamp = new Date(results.getTimestamp("OccurredTimeStamp").getTime());
@@ -246,7 +249,7 @@ public class CrimeReportsDao {
 					int neighborhoodId = results.getInt("NeighborhoodId");
 					int resultZipcodeId = results.getInt("ZipcodeId");		
 					
-					Users user = usersDao.getUserFromUserName(userName);
+					Users user = new Users(userName);
 					CrimeCategory initialCallType = new CrimeCategory(initialCallTypeId);
 					CrimeCategory finalCallType = new CrimeCategory(finalCallTypeId);
 					BeatSector beatSector = new BeatSector(beatId);

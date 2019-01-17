@@ -18,9 +18,12 @@
 <title>Insert Crime Report</title>
 </head>
 <body>
+	<div class="container theme-showcase" role="main">
+	<div class="jumbotron">
 	<h1>Insert Crime Report</h1>
+	</div>
+	
 	<div>
-		
 		<form action="reportadd" method="post">
 			<p>
 				<label for="username">UserName</label>
@@ -32,43 +35,43 @@
 			</p>
 			
 			<p>
-				<label for="initialCallType">Crime Type</label>
-				<input id="initialCallType" name = "initialCallType" value ="">
+				<label for="initialCallTypeId">Crime Type</label>
+				<input id="initialCallTypeId" name = "initialCallTypeId" value ="">
 			</p>
 			
 			<p>
-				<label for="beatsector">BeatSector</label>
-			 	<input id="beatsector" name="beatsector" value="">
+				<label for="beatsectorId">BeatSector</label>
+			 	<input id="beatsectorId" name="beatsectorId" value="">
 			</p>
 			<p>
-				<label for="neighborhood">Neighborhood</label>
-			 	<input id="neighborhood" name="neighborhood" value="">
+				<label for="neighborhoodId">Neighborhood</label>
+			 	<input id="neighborhoodId" name="neighborhoodId" value="">
 			</p>
 			<p>
-				<label for="zipcode">Zipcode</label>
-			 	<input id="zipcode" name="zipcode" value="">
+				<label for="zipcodeId">Zipcode</label>
+			 	<input id="zipcodeId" name="zipcodeId" value="">
 			</p>
 			
 			<p>
-			<input type="submit">
+			<input type="submit" class="btn btn-lg btn-primary">
 			</p>
-			<p>
-			<input type="button" class="btn"  value="Back" onclick="javascript:history.go(-1);"/>
-			</p>
+				<a href="/CrimeBuster">
+			<input type="button" class="btn btn-lg btn-primary" value="Back">
+			</a>
 			
 		</form>	
 	</div>
 	<p>
+		<div class="alert alert-success" role="alert">
 		<span id="successMessage"><b>${messages.success}</b></span>
+		</div>
 	</p>
+	</div>
 	
 	<!-- Bootstrap -->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-     <script src="js/datetime.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
-     <script src="pikaday.js"></script>
 </body>
 </html>

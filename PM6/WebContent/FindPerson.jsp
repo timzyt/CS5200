@@ -8,25 +8,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <title>Find a Person</title>
 </head>
 <body>
 	<div class="container theme-showcase" role="main">
-	
 	<form action="findperson" method="post">
-		<div class="jumbotron">
-		<h1>Search for a Person by FirstName</h1>
+	  	<div class="jumbotron">
+		<h1>User Register</h1>
 		</div>
 		<p>
 			<h2><label for="firstname">FirstName</label></h2>
 			<input id="firstname" name="firstname" value="${fn:escapeXml(param.firstname)}">
 		</p>
 		<p>
-			<input type="submit">
+			<input type="submit" class="btn btn-lg btn-primary">
 			<br/><br/><br/>
-			<h2><span id="successMessage"><b>${messages.success}</b></span></h2>
+			<div class="alert alert-info" role="alert">
+			<span id="successMessage"><b>${messages.success}</b></span>
+			</div>
+			
 		</p>
 	</form>
 	<br/>
@@ -41,27 +42,24 @@
        		<th>LastName</th>
        		<th>Email</th>
        		<th>Phone</th>
-       		<th>CrimeReports</th>
-       		<th>Comments</th>
        		<th>Delete Person</th>
        		<th>Update Person</th>
        	</tr>
        	<c:forEach items="${persons}" var="person">
-       		<tbody><tr>
+       		<tr>
        			<td><c:out value="${person.getUserName()}" /></td>
        			<td><c:out value="${person.getFirstName()}" /></td>
        			<td><c:out value="${person.getLastName()}" /></td>
        			<td><c:out value="${person.getEmail()}" /></td>
        			<td><c:out value="${person.getPhone()}" /></td>
-       			<td><a href="findreport?username=<c:out value="${person.getUserName()}" />">CrimeReports</a></td>
-       			<td><a href="UserComment?username=<c:out value="${person.getUserName()}" />">Comments</a></td>
        			<td><a href="persondelete?username=<c:out value="${person.getUserName()}" />">Delete Person</a></td>
        			<td><a href="personupdate?username=<c:out value="${person.getUserName()}" />">Update Person</a></td>
-       		</tr></tbody>
+       		</tr>
        	</c:forEach>
        </table>
-	</div>
-	<!-- Bootstrap -->
+       
+         </div>
+       	<!-- Bootstrap -->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

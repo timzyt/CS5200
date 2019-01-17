@@ -21,7 +21,8 @@ import crimebuster.model.CrimeReports;
  */
 @WebServlet("/findreport")
 public class FindReport extends HttpServlet {
-	public CrimeReportsDao crimeReportsDao;
+	private static final long serialVersionUID = 1L;
+	protected CrimeReportsDao crimeReportsDao;
        
 	@Override
 	public void init() throws ServletException {
@@ -48,9 +49,12 @@ public class FindReport extends HttpServlet {
 					throw new IOException(e);
 			}
         		messages.put("success", "Displaying results for " + zipcode);
+        		messages.put("zipcode", zipcode);
+        	
         }
-        request.setAttribute("crimeReports", crimeReports);
+        request.setAttribute("zipcode", zipcode);
 		request.getRequestDispatcher("/FindReport.jsp").forward(request, response);
+       
 	}
 
 	/**
@@ -75,7 +79,7 @@ public class FindReport extends HttpServlet {
         	messages.put("success", "Displaying results for " + zipcode);
         }
         request.setAttribute("crimeReports", crimeReports);
-        request.getRequestDispatcher("/FindReports.jsp").forward(request, response);
+        request.getRequestDispatcher("/FindReport.jsp").forward(request, response);
 	}
 
 }
